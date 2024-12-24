@@ -28,7 +28,7 @@ export const TaskBoard = () => {
           if (task.id === newTask.id) {
             return newTask;
           }
-          return task
+          return task;
         })
       );
     }
@@ -43,7 +43,17 @@ export const TaskBoard = () => {
   const handleCloseClick = () => {
     setShowAddModal(false);
     setTaskToUpdate(null);
-  }
+  };
+
+  const handleDeleteTask = (taskId) => {
+    const taskAfterDelete = tasks.filter((task) => task.id !== taskId);
+    setTasks(taskAfterDelete);
+  };
+
+  const handleDeleteAllTask = () => {
+    tasks.length = 0;
+    setTasks([...tasks]);
+  };
 
   return (
     <section className="mb-20" id="tasks">
@@ -61,8 +71,15 @@ export const TaskBoard = () => {
               onCloseClick={handleCloseClick}
             />
           )}
-          <TaskActions onAddClick={() => setShowAddModal(true)} />
-          <TaskList tasks={tasks} onEdit={handleEditTask} />
+          <TaskActions
+            onAddClick={() => setShowAddModal(true)}
+            onDeleteAll={handleDeleteAllTask}
+          />
+          <TaskList
+            tasks={tasks}
+            onEdit={handleEditTask}
+            onDelete={handleDeleteTask}
+          />
         </div>
       </div>
     </section>
