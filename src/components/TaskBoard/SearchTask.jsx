@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const SearchTask = () => {
+export const SearchTask = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    onSearch(searchTerm);
+  };
+
   return (
     <form>
       <div className="flex">
@@ -10,10 +17,13 @@ export const SearchTask = () => {
             id="search-dropdown"
             className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"
             placeholder="Search Task"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             required
           />
           <button
             type="submit"
+            onClick={handleClick}
             className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
           >
             <svg

@@ -1,7 +1,7 @@
 import React from "react";
 import { FaStar } from "react-icons/fa6";
 
-export const TaskList = ({ tasks, onEdit, onDelete }) => {
+export const TaskList = ({ tasks, onEdit, onDelete, onFav }) => {
   return (
     <div className="overflow-auto">
       <table className="table-fixed overflow-auto xl:w-full">
@@ -36,7 +36,15 @@ export const TaskList = ({ tasks, onEdit, onDelete }) => {
               key={task.id}
               className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2"
             >
-              <td>{task.isFavorite ? <FaStar color="yellow"/> : <FaStar color="gray"/>}</td>
+              <td>
+                <button onClick={() => onFav(task.id)}>
+                  {task.isFavorite ? (
+                    <FaStar color="yellow" />
+                  ) : (
+                    <FaStar color="gray" />
+                  )}
+                </button>
+              </td>
               <td>{task.title}</td>
               <td>
                 <div>{task.description}</div>
@@ -55,8 +63,18 @@ export const TaskList = ({ tasks, onEdit, onDelete }) => {
               <td className="text-center">{task.priority}</td>
               <td>
                 <div className="flex items-center justify-center space-x-3">
-                  <button onClick={()=> onDelete(task.id)} className="text-red-500">Delete</button>
-                  <button onClick={()=> onEdit(task)} className="text-blue-500">Edit</button>
+                  <button
+                    onClick={() => onDelete(task.id)}
+                    className="text-red-500"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={() => onEdit(task)}
+                    className="text-blue-500"
+                  >
+                    Edit
+                  </button>
                 </div>
               </td>
             </tr>
